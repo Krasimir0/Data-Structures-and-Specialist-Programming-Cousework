@@ -4,6 +4,8 @@
  */
 package com.mycompany.productsystemcw;
 
+import java.util.Date;
+
 /**
  *
  * @author krasipetranov
