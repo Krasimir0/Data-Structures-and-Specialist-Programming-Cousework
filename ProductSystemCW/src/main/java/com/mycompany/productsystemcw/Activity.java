@@ -43,4 +43,10 @@ public class Activity {
         return "ID: " + activityID + ", Name: " + activityName +
                ", Quantity: " + activityQuantity + ", Date: " + activityDate;
     }
+    
+    @Override
+    public String toString() {
+    return "ID: " + activityID + ", Name: " + activityName +
+           ", Quantity: " + activityQuantity + ", Date: " + activityDate;
+}
 }
