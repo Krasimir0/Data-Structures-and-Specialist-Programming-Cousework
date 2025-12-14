@@ -4,8 +4,7 @@
 
 package com.mycompany.productsystemcw;
 
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.Scanner;
 
 /**
@@ -13,154 +12,123 @@ import java.util.Scanner;
  * @author krasipetranov
  */
 public class ProductSystemCW {
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Product> products = new ArrayList<>();
-
-        int option;
-        
-         do {
-            System.out.println("1. Add Product");
-            System.out.println("2. View All Products");
-            System.out.println("3. Add Activity to Product");
-            System.out.println("4. Remove Activity from Product");
-            System.out.println("5. Sort Activities by Quantity");
-            System.out.println("6. Search Activity by ID in Product");
-            System.out.println("7. Print Product Details");
-            System.out.println("0. Exit");
-            System.out.print("Choose option: ");
-            option = sc.nextInt();
-
-            switch (option) {
-
-                case 1 -> {
-                    System.out.print("Enter Product ID: ");
-                    int id = sc.nextInt();
-                    sc.nextLine();
-
-                    System.out.print("Enter Product Name: ");
-                    String productName = sc.nextLine();
-
-                    System.out.print("Enter Product Quantity: ");
-                    int quality = sc.nextInt();
-
-                    Product p = new Product(id, productName, new Date(), quality);
-                    products.add(p);
-                    System.out.println("Product added successfully!");
-                }
-
-                case 2 -> {
-                    for (Product p : products) {
-                        System.out.println("ID: " + p.getProductID() + ", Name: " + p.getProductName());
-                    }
-                }
-
-                case 3 -> {
-                    System.out.print("Enter Product ID to add activity: ");
-                    int productId = sc.nextInt();
-                    Product p = findProduct(products, productId);
-
-                    if (p == null) {
-                        System.out.println("Product not found!");
-                        break;
-                    }
-
-                    System.out.print("Enter Activity ID: ");
-                    int activityId = sc.nextInt();
-                    sc.nextLine();
-
-                    System.out.print("Enter Activity Name: ");
-                    String activityName = sc.nextLine();
-
-                    System.out.print("Enter Activity Quantity: ");
-                    int activityQuantity = sc.nextInt();
-
-                    Activity a = new Activity(activityId, activityName, activityQuantity, new Date());
-                    p.addActivity(a);
-
-                    System.out.println("Activity added.");
-                }
-
-                case 4 -> {
-                    System.out.print("Enter Product ID: ");
-                    int productId = sc.nextInt();
-                    Product p = findProduct(products, productId);
-
-                    if (p == null) {
-                        System.out.println("Product not found!");
-                        break;
-                    }
-
-                    System.out.print("Enter activity index to remove activity: ");
-                    int index = sc.nextInt();
-                    p.removeActivity(index);
-                    System.out.println("Activity removed.");
-                }
-
-                case 5 -> {
-                    System.out.print("Enter Product ID: ");
-                    int productId = sc.nextInt();
-                    Product p = findProduct(products, productId);
-
-                    if (p == null) {
-                        System.out.println("Product not found!");
-                        break;
-                    }
-
-                    p.sortActivitiesByQuantity();
-                    System.out.println("Activities sorted by quantity.");
-                }
-
-                case 6 -> {
-                    System.out.print("Enter Product ID: ");
-                    int productId = sc.nextInt();
-                    Product p = findProduct(products, productId);
-
-                    if (p == null) {
-                        System.out.println("Product not found!");
-                        break;
-                    }
-
-                    System.out.print("Enter Activity ID: ");
-                    int activityId = sc.nextInt();
-
-                    int index = p.getActivities().searchByActivityID(activityId);
-                    if (index >= 0)
-                        System.out.println("Activity found at index: " + index);
-                    else
-                        System.out.println("Activity not found.");
-                }
-
-                case 7 -> {
-                    System.out.print("Enter Product ID: ");
-                    int productId = sc.nextInt();
-                    Product p = findProduct(products, productId);
-
-                    if (p != null) {
-                        p.printProduct();
-                    } else {
-                        System.out.println("Product not found!");
-                    }
-                }
-
-                case 0 -> System.out.println("Exiting");
-
-                default -> System.out.println("Invalid option!");
-            }
-
-        } while (option != 0);
-
-        sc.close();
+    private ProductActivityManagement manager;
+    private Scanner scanner;
+    
+    public ProductSystemCW() {
+        manager = new ProductActivityManagement();
+        scanner = new Scanner(System.in);
     }
-
-    private static Product findProduct(ArrayList<Product> products, int id) {
-        for (Product p : products) {
-            if (p.getProductID() == id) {
-                return p;
+    
+    public void displayMenu() {
+        System.out.println("1. Create New Product");
+        System.out.println("2. Display All Products");
+        System.out.println("3. Delete Product");
+        System.out.println("4. Add Stock");
+        System.out.println("5. Remove Stock (Sell)");
+        System.out.println("6. View Product Activities");
+        System.out.println("7. Test Activity Limitation (Last 4 only)");
+        System.out.println("8. Exit");
+        System.out.print("Enter your choice: ");
+    }
+    
+    public void run() {
+        boolean running = true;
+        
+        while (running) {
+            displayMenu();
+            int choice = getIntInput();
+            
+            switch (choice) {
+                case 1:
+                    createProduct();
+                    break;
+                case 2:
+                    manager.displayAllProducts();
+                    break;
+                case 3:
+                    deleteProduct();
+                    break;
+                case 4:
+                    addStock();
+                    break;
+                case 5:
+                    removeStock();
+                    break;
+                case 6:
+                    viewActivities();
+                    break;
+                case 7:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
             }
         }
-        return null;
+        scanner.close();
     }
- }
+    
+    private void createProduct() {
+        System.out.print("Enter product name: ");
+        scanner.nextLine(); 
+        String name = scanner.nextLine();
+        
+        System.out.print("Enter initial quantity: ");
+        int quantity = getIntInput();
+        
+        manager.createProduct(name, quantity);
+    }
+    
+    private void deleteProduct() {
+        System.out.print("Enter product ID to delete: ");
+        int id = getIntInput();
+        manager.deleteProduct(id);
+    }
+    
+    private void addStock() {
+        System.out.print("Enter product ID: ");
+        int id = getIntInput();
+        
+        System.out.print("Enter quantity to add: ");
+        int quantity = getIntInput();
+        
+        manager.updateProductActivity(id, "AddToStock", quantity);
+    }
+    
+    private void removeStock() {
+        System.out.print("Enter product ID: ");
+        int id = getIntInput();
+        
+        System.out.print("Enter quantity to remove/sell: ");
+        int quantity = getIntInput();
+        
+        manager.updateProductActivity(id, "RemoveFromStock", quantity);
+    }
+    
+    private void viewActivities() {
+        System.out.print("Enter product ID: ");
+        int id = getIntInput();
+        manager.displaySortedActivities(id);
+    }
+    
+    private void testActivityLimitation() {
+        System.out.print("Enter product ID to test: ");
+        int id = getIntInput();
+        manager.testActivityLimitation(id);
+    }
+    
+    private int getIntInput() {
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input! Please enter a number.");
+            scanner.next();
+        }
+        int input = scanner.nextInt();
+        return input;
+    }
+    
+    public static void main(String[] args) {
+        ProductSystemCW ui = new ProductSystemCW();
+        ui.run();
+    }
+}
     
