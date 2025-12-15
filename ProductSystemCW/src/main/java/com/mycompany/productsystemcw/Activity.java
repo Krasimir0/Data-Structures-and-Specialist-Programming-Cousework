@@ -5,7 +5,6 @@
 package com.mycompany.productsystemcw;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  *
@@ -24,15 +23,37 @@ public class Activity {
         this.activityDate = activityDate;
     }
     
-    public int getActivityId() { return activityId; }
-    public String getActivityName() { return activityName; }
-    public int getActivityQuantity() { return activityQuantity; }
-    public LocalDate getActivityDate() { return activityDate; }
+    public int getActivityId() {
+        return activityId; 
+    }
     
-    public void setActivityId(int activityId) { this.activityId = activityId; }
-    public void setActivityName(String activityName) { this.activityName = activityName; }
-    public void setActivityQuantity(int activityQuantity) { this.activityQuantity = activityQuantity; }
-    public void setActivityDate(LocalDate activityDate) { this.activityDate = activityDate; }
+    public String getActivityName() {
+        return activityName; 
+    }
+    
+    public int getActivityQuantity() {
+        return activityQuantity; 
+    }
+    
+    public LocalDate getActivityDate() { 
+        return activityDate; 
+    }
+    
+    public void setActivityId(int activityId) {
+        this.activityId = activityId; 
+    }
+    
+    public void setActivityName(String activityName) { 
+        this.activityName = activityName; 
+    }
+    
+    public void setActivityQuantity(int activityQuantity) { 
+        this.activityQuantity = activityQuantity; 
+    }
+    
+    public void setActivityDate(LocalDate activityDate) { 
+        this.activityDate = activityDate; 
+    }
     
     @Override
     public String toString() {
