@@ -133,7 +133,7 @@ public class ProductActivityManagement {
         
         Activity[] sortedActivities = bubbleSortActivities(activityArr);
         
-        System.out.println("\n=== Last " + activityArray.length + " ACTIVITIES FOR PRODUCT ID " + productId + " (SORTED BY QUANTITY) ===");
+        System.out.println("Last " + activityArray.length + " ACTIVITIES FOR PRODUCT ID " + productId);
         for (int i = 0; i < Math.min(4, sortedActivities.length); i++) {
             System.out.println((i + 1) + ". " + sortedActivities[i]);
         }
