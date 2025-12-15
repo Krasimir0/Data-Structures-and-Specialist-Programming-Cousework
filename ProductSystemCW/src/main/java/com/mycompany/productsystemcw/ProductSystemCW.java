@@ -25,10 +25,9 @@ public class ProductSystemCW {
         System.out.println("2. Display All Products");
         System.out.println("3. Delete Product");
         System.out.println("4. Add Stock");
-        System.out.println("5. Remove Stock (Sell)");
+        System.out.println("5. Remove From Stock");
         System.out.println("6. View Product Activities");
-        System.out.println("7. Test Activity Limitation (Last 4 only)");
-        System.out.println("8. Exit");
+        System.out.println("7. Exit");
         System.out.print("Enter your choice: ");
     }
     
@@ -111,11 +110,6 @@ public class ProductSystemCW {
         manager.displaySortedActivities(id);
     }
     
-    private void testActivityLimitation() {
-        System.out.print("Enter product ID to test: ");
-        int id = getIntInput();
-        manager.testActivityLimitation(id);
-    }
     
     private int getIntInput() {
         while (!scanner.hasNextInt()) {
