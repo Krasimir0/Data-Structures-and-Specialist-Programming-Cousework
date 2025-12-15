@@ -4,90 +4,68 @@
  */
 package com.mycompany.productsystemcw;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author krasipetranov
  */
 public class Product {
-    private int productID;
+   private int productId;
     private String productName;
-    private Date productEntryDate;
-    private int productQuantity;
-
+    private LocalDate entryDate;
+    private int quantity;
+    private CustomLinkedList<Activity> activities; 
     
-    private final ActivityLinkedList activities;
-
+    public Product(int productId, String productName, LocalDate entryDate, int quantity) {
+        this.productId = productId;
+        this.productName = productName;
+        this.entryDate = entryDate;
+        this.quantity = quantity;
+        this.activities = new CustomLinkedList<>(4); 
+    }
+    
    
-    public Product(int productID, String productName, Date productEntryDate, int productQuantity) {
-        this.productID = productID;
-        this.productName = productName;
-        this.productEntryDate = productEntryDate;
-        this.productQuantity = productQuantity;
-        this.activities = new ActivityLinkedList();
+    public int getProductId() {
+        return productId; 
     }
-
-    // Getters and Setters
-    public int getProductID() {
-        return productID;
-    }
-
-    public void setProductID(int productID) {
-        this.productID = productID;
-    }
-
+    
     public String getProductName() {
-        return productName;
+        return productName; 
     }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
+    
+    public LocalDate getEntryDate() {
+        return entryDate; 
     }
-
-    public Date getProductEntryDate() {
-        return productEntryDate;
+    
+    public int getQuantity() { 
+        return quantity; 
     }
-
-    public void setProductEntryDate(Date productEntryDate) {
-        this.productEntryDate = productEntryDate;
+    
+    public CustomLinkedList<Activity> getActivities() { 
+        return activities; 
     }
-
-    public int getProductQuantity() {
-        return productQuantity;
-    }
-
-    public void setProductQuantity(int productQuantity) {
-        this.productQuantity = productQuantity;
-    }
-
-    public ActivityLinkedList getActivities() {
-        return activities;
-    }
-
+    
     
     public void addActivity(Activity activity) {
-        activities.add(activity);
+        activities.addFirst(activity); 
     }
-
-   
     
-    public void removeActivity(int index) {
-        activities.remove(index);
-    }
-
     
-    public void sortActivitiesByQuantity() {
-        activities.sortByQuantity();
+    public void updateQuantity(int change, String activityType) {
+        if (activityType.equals("AddToStock")) {
+            quantity += change;
+        } else if (activityType.equals("RemoveFromStock")) {
+            quantity -= change;
+            if (quantity < 0) quantity = 0;
+        }
     }
-
-    public void printProduct() {
-        System.out.println("Product ID: " + productID);
-        System.out.println("Name: " + productName);
-        System.out.println("Entry Date: " + productEntryDate);
-        System.out.println("Quantity: " + productQuantity);
-        System.out.print("Activities: ");
-        activities.print();
-        System.out.println();
+    
+    @Override
+    public String toString() {
+        return "ID: " + productId + 
+               ", Name: " + productName + 
+               ", Entry Date: " + entryDate + 
+               ", Quantity: " + quantity;
     }
 }
