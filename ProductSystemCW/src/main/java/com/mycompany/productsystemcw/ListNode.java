@@ -9,10 +9,10 @@ package com.mycompany.productsystemcw;
  * @author krasipetranov
  */
 public class ListNode {
-    Activity data;
+    Product data;
     ListNode next;
 
-    public ListNode(Activity data) {
+    public ListNode(Product data) {
         this.data = data;
         this.next = null;
     }
