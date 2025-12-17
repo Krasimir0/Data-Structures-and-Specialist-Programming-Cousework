@@ -11,13 +11,13 @@ import java.util.Map;
 
 /**
  *
- * @author krasipetranov
+ * @author krasipetranov and Matthew Cooke
  */
 public class ProductActivityManagement {
     private Map<Integer, Product> products;
     private int nextProductId;
     private int nextActivityId;
-    
+// the bubble sort algorithm used a few loops to achive the sort
     public Activity[] bubbleSortActivities(Activity[] activities) {
         int n = activities.length;
         Activity[] sorted = Arrays.copyOf(activities, n);
@@ -33,7 +33,7 @@ public class ProductActivityManagement {
         }
         return sorted;
     }
-    
+    // goes through the list using productIds untill it finds the one it needs
     public Product linearSearchProduct(int productId) {
         for (Product product : products.values()) {
             if (product.getProductId() == productId) {
@@ -42,13 +42,13 @@ public class ProductActivityManagement {
         }
         return null;
     }
-    
+    //this is done to automaticaly create product IDS and Activitys IDs
     public ProductActivityManagement() {
         this.products = new HashMap<>();
         this.nextProductId = 1;
         this.nextActivityId = 1;
     }
-    
+   // this is called on when the user want to create a item and added to the list  
     public void createProduct(String productName, int initialQuantity) {
         Product product = new Product(nextProductId++, productName, LocalDate.now(), initialQuantity);
         products.put(product.getProductId(), product);
@@ -59,7 +59,7 @@ public class ProductActivityManagement {
         
         System.out.println("Product created successfully: " + product);
     }
-    
+    // this is called on to show the list of products when requested by the user
     public void displayAllProducts() {
         if (products.isEmpty()) {
             System.out.println("No products in the system.");
@@ -71,7 +71,7 @@ public class ProductActivityManagement {
             System.out.println(product);
         }
     }
-    
+// this is called on when the user requested and remove the product with the same product iD as the one ented
     public void deleteProduct(int productId) {
         Product product = linearSearchProduct(productId);
         
@@ -82,7 +82,7 @@ public class ProductActivityManagement {
             System.out.println("Product not found with ID: " + productId);
         }
     }
-    
+    // error handling
     public void updateProductActivity(int productId, String activityType, int quantity) {
         Product product = linearSearchProduct(productId);
         
@@ -109,7 +109,7 @@ public class ProductActivityManagement {
         System.out.println("Activity added: " + activity);
         System.out.println("Updated product quantity: " + product.getQuantity());
     }
-    
+    // error handling 
     public void displaySortedActivities(int productId) {
         Product product = linearSearchProduct(productId);
         
