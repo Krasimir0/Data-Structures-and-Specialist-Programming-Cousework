@@ -9,17 +9,17 @@ import java.util.Scanner;
 
 /**
  *  
- * @author krasipetranov
+ * @author krasipetranov and Matthew Cooke
  */
 public class ProductSystemCW {
     private ProductActivityManagement manager;
     private Scanner scanner;
-    
+// used for getting the input to the menu    
     public ProductSystemCW() {
         manager = new ProductActivityManagement();
         scanner = new Scanner(System.in);
     }
-    
+// creates the menu in the console 
     public void displayMenu() {
         System.out.println("1. Create New Product");
         System.out.println("2. Display All Products");
@@ -37,7 +37,7 @@ public class ProductSystemCW {
         while (running) {
             displayMenu();
             int choice = getIntInput();
-            
+            // gets input from user and does the corresponding acction
             switch (choice) {
                 case 1:
                     createProduct();
@@ -66,7 +66,7 @@ public class ProductSystemCW {
         }
         scanner.close();
     }
-    
+// creates a Product user enter a name and amount and automaticaly give it an Id 
     private void createProduct() {
         System.out.print("Enter product name: ");
         scanner.nextLine(); 
@@ -77,13 +77,13 @@ public class ProductSystemCW {
         
         manager.createProduct(name, quantity);
     }
-    
+// removes item from list  
     private void deleteProduct() {
         System.out.print("Enter product ID to delete: ");
         int id = getIntInput();
         manager.deleteProduct(id);
     }
-    
+// add to the quantity of an item     
     private void addStock() {
         System.out.print("Enter product ID: ");
         int id = getIntInput();
@@ -93,7 +93,7 @@ public class ProductSystemCW {
         
         manager.updateProductActivity(id, "AddToStock", quantity);
     }
-    
+// removes from quantity
     private void removeStock() {
         System.out.print("Enter product ID: ");
         int id = getIntInput();
@@ -103,14 +103,14 @@ public class ProductSystemCW {
         
         manager.updateProductActivity(id, "RemoveFromStock", quantity);
     }
-    
+// show the history of the last 4 changes to the product   
     private void viewActivities() {
         System.out.print("Enter product ID: ");
         int id = getIntInput();
         manager.displaySortedActivities(id);
     }
     
-    
+ // get an input from the user for the menu selection screen   
     private int getIntInput() {
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input! Please enter a number.");
