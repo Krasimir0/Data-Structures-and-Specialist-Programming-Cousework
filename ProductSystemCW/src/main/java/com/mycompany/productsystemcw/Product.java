@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author krasipetranov
+ * @author krasipetranov and Matthew cooke
  */
 public class Product {
    private int productId;
@@ -25,7 +25,7 @@ public class Product {
         this.activities = new CustomLinkedList<>(4); 
     }
     
-   
+  //these all get used to get information about the product that the use is creating
     public int getProductId() {
         return productId; 
     }
@@ -37,7 +37,7 @@ public class Product {
     public LocalDate getEntryDate() {
         return entryDate; 
     }
-    
+
     public int getQuantity() { 
         return quantity; 
     }
@@ -51,7 +51,7 @@ public class Product {
         activities.addFirst(activity); 
     }
     
-    
+    //this is done so that the user can chage the quantity of a product without delating the product
     public void updateQuantity(int change, String activityType) {
         if (activityType.equals("AddToStock")) {
             quantity += change;
