@@ -6,13 +6,13 @@ package com.mycompany.productsystemcw;
 
 /**
  *
- * @author krasipetranov
+ * @author krasipetranov and Matthew Cooke
  */
 public class CustomLinkedList<T> {
     private Node<T> head;
     private int size;
     private int capacity; 
-    
+// stores data for the linked list and links to the next node   
     private static class Node<T> {
         T data;
         Node<T> next;
@@ -22,20 +22,20 @@ public class CustomLinkedList<T> {
             this.next = null;
         }
     }
-    
+// creating the linkedList 
     public CustomLinkedList() {
         this.head = null;
         this.size = 0;
         this.capacity = Integer.MAX_VALUE; 
     }
-    
+//makes the linkList have no limit by icreasing the limit as data is added   
     public CustomLinkedList(int capacity) {
         this.head = null;
         this.size = 0;
         this.capacity = capacity;
     }
     
-    
+// add the new element to the front of the list
     public void addFirst(T data) {
         Node<T> newNode = new Node<>(data);
         newNode.next = head;
@@ -48,7 +48,7 @@ public class CustomLinkedList<T> {
         }
     }
     
-
+//adds the new element to the back of the list
     public void addLast(T data) {
         Node<T> newNode = new Node<>(data);
         
@@ -69,7 +69,7 @@ public class CustomLinkedList<T> {
         }
     }
     
-
+//removes the first element from the list
     public T removeFirst() {
         if (head == null) return null;
         
@@ -79,7 +79,7 @@ public class CustomLinkedList<T> {
         return data;
     }
     
-    
+// removes the last element from the list   
     public T removeLast() {
         if (head == null) return null;
         
@@ -112,7 +112,7 @@ public class CustomLinkedList<T> {
         return current.data;
     }
     
-    
+ // set the size of the list to 0 if the list is empty
     public boolean isEmpty() {
         return size == 0;
     }
@@ -122,7 +122,7 @@ public class CustomLinkedList<T> {
         return size;
     }
     
-    
+    // converts the list into an array
     public Object[] toArray() {
         Object[] array = new Object[size];
         Node<T> current = head;
@@ -136,7 +136,7 @@ public class CustomLinkedList<T> {
         return array;
     }
     
-
+// display all elements in the list with their index
     public void display() {
         Node<T> current = head;
         int index = 1;
