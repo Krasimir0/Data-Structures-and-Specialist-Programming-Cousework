@@ -6,7 +6,7 @@ package com.mycompany.productsystemcw;
 
 /**
  *
- * @author krasipetranov
+ * @author krasipetranov and Matthew Cooke
  */
 public class ListNode {
     Product data;
